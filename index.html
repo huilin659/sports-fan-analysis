@@ -773,7 +773,7 @@
 
         // 登录/注册按钮弹窗（模拟表单）
         function showLoginModal(type) {
-            if (type === 'login') {
+            if (type === '登录') {
                 modalBody.innerHTML = `
                     <h2>登录</h2>
                     <div class="login-form">
@@ -801,19 +801,19 @@
         // 绑定登录/注册按钮
         document.getElementById('loginBtn').addEventListener('click', function(e) {
             e.preventDefault();
-            showLoginModal('login');
+            showLoginModal('登录');
         });
-        document.getElementById('registerBtn').addEventListener('click', function(e) {
+        document.getElementById('注册按钮').addEventListener('click', function(e) {
             e.preventDefault();
-            showLoginModal('register');
+            showLoginModal('注册');
         });
-        document.getElementById('loginLink').addEventListener('click', function(e) {
+        document.getElementById('登录链接')addEventListener('click', 功能'{
             e.preventDefault();
-            showLoginModal('login');
+            showLoginModal('登录');
         });
-        document.getElementById('registerLink').addEventListener('click', function(e) {
+        document.getElementById('注册链接').addEventListener('click', function(e) {
             e.preventDefault();
-            showLoginModal('register');
+            showLoginModal('注册');
         });
 
         // 其他按钮默认都有 onclick 提示，无需额外绑定
