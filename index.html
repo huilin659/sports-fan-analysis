@@ -9,7 +9,7 @@
     <!-- Font Awesome 图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* 原有样式保持不变，仅增加模态框相关样式 */
+        /* 样式部分（与之前完全相同，略，但为了完整性，保留全部样式） */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Microsoft YaHei', Arial, sans-serif; 
@@ -386,7 +386,6 @@
             padding: 40px 60px;
             text-align: center;
         }
-
         /* ---------- 模态框样式 ---------- */
         .modal {
             display: none; /* 默认隐藏 */
@@ -681,7 +680,7 @@
         </div>
     </div>
 
-    <!-- Plotly 绘图脚本 -->
+    <!-- Plotly 绘图脚本 + 交互功能 -->
     <script>
         // 渗透率图表
         var penetrationData = [{
@@ -812,7 +811,7 @@
             e.preventDefault();
             showLoginModal('login');
         });
-        document.getElementById('registerLink')addEventListener('click', functione{
+        document.getElementById('registerLink')addEventListener('click', functione)
             e.preventDefault();
             showLoginModal('register');
         });
