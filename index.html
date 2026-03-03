@@ -2,10 +2,10 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name=“viewport” 内容=“width=device-width, initial-scale=1.0”>
-<标题>智赛体育 · 粉丝经济智能分析平台</标题>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智赛体育 · 饭圈经济智能分析平台</title>
     <!-- Plotly.js 图表库 -->
-&lt;b&gt;&lt;script src=&quot;https:&#x2F;&#x2F;cdn.plot.ly&#x2F;plotly-latest.min.js&quot;&gt;&lt;&#x2F;script&gt;&lt;&#x2F;b&gt;
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <!-- Font Awesome 图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -13,41 +13,41 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Microsoft YaHei', Arial, sans-serif; 
-背景: #f0f2f5;
+            background: #f0f2f5;
         }
         .navbar {
-显示: 弹性;
-对齐方式: 间距;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-背景: 白色;
-内边距: 0 60px;
-高度: 70像素;
-阴影：0 2px 10px rgba(0,0,0,0.05);
+            background: white;
+            padding: 0 60px;
+            height: 70px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
             position: sticky;
             top: 0;
             z-index: 100;
         }
         .logo-area {
-显示: 弹性;
+            display: flex;
             align-items: center;
             gap: 10px;
         }
         .logo-icon {
             font-size: 28px;
-颜色：#1e3c72；
+            color: #1e3c72;
         }
         .logo-text {
-字体大小：22px；
-字体粗细：加粗；
-颜色：#1e3c72；
+            font-size: 22px;
+            font-weight: bold;
+            color: #1e3c72;
         }
         .nav-links {
-显示: 弹性;
+            display: flex;
             gap: 32px;
         }
         .nav-links a {
             color: #333;
-文本装饰：无；
+            text-decoration: none;
             font-size: 16px;
             font-weight: 500;
             transition: color 0.2s;
@@ -56,21 +56,21 @@
             color: #4CAF50;
         }
         .nav-right {
-显示: 弹性;
+            display: flex;
             align-items: center;
             gap: 20px;
         }
         .btn-outline {
-边框：1px实线 #1e3c72；
-颜色：#1e3c72；
-背景：透明；
-内边距：8px 20px；
+            border: 1px solid #1e3c72;
+            color: #1e3c72;
+            background: transparent;
+            padding: 8px 20px;
             border-radius: 30px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
-文本装饰：无；
-字体大小：14px；
+            text-decoration: none;
+            font-size: 14px;
         }
         .btn-outline:hover {
             background: #1e3c72;
@@ -79,12 +79,12 @@
         .btn-solid {
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: white;
-边框：无；
-内边距：8像素 24像素；
+            border: none;
+            padding: 8px 24px;
             border-radius: 30px;
             font-weight: 500;
             cursor: pointer;
-过渡：透明度 0.2秒；
+            transition: opacity 0.2s;
             text-decoration: none;
             font-size: 14px;
         }
@@ -456,7 +456,7 @@
             padding: 12px;
             background: #1e3c72;
             color: white;
-边框：无；
+            border: none;
             border-radius: 30px;
             font-size: 16px;
             cursor: pointer;
@@ -897,13 +897,13 @@
             // 粉丝性别比例（饼图）
             var genderData = [{
                 values: [58, 42],
-标签: ['女性', '男性'],
-类型: '饼图',
-标记: { 颜色: ['#FF6384', '#36A2EB'] }
+                labels: ['女性', '男性'],
+                type: 'pie',
+                marker: { colors: ['#FF6384', '#36A2EB'] }
             }];
-性别布局 = {
+            var genderLayout = {
                 title: '',
-边距：{ l: 30, r: 30, t: 30, b: 30 }
+                margin: { l: 30, r: 30, t: 30, b: 30 }
             };
             Plotly.newPlot('genderChart', genderData, genderLayout);
         }
@@ -917,13 +917,13 @@
             modal.style.display = 'none';
         };
         window.onclick = function(event) {
-如果 (event.target == modal) {
+            if (event.target == modal) {
                 modal.style.display = 'none';
             }
         };
 
         function showLoginModal(type) {
-如果 (类型 === '登录') {
+            if (type === 'login') {
                 modalBody.innerHTML = `
                     <h2>登录</h2>
                     <div class="login-form">
@@ -966,18 +966,18 @@
         // 案例数据
         var caseDetails = {
             1: {
-标题：惠州综高杯·深度案例
-统计数据：观众5.2万+，赞助增长230%
+                title: '惠州综高杯 · 深度案例',
+                stats: '观众5.2万+，赞助增长230%',
                 desc: '通过我们的粉丝行为分析模型，惠州综高杯精准定位年轻受众，优化票务分层策略。最终门票售罄速度提升60%，衍生品销售额突破800万元。主办方对我们的数据洞察高度认可，并续约了2027年度的合作。'
             },
             2: {
-标题：贵州村超·深度案例
-统计数据：全网曝光58亿次，旅游收入+340%
+                title: '贵州村超 · 深度案例',
+                stats: '全网曝光58亿次，旅游收入+340%',
                 desc: '贵州村超借助球迷社群的自发传播，打造现象级IP。我们的模型帮助组委会量化粉丝经济转化率（达52%），并识别出关键传播节点，为后续商业化提供了数据支撑。央视多次报道，成为乡村振兴的典范。'
             },
             3: {
-标题: ‘乒超联赛 · 深度案例’,
-数据: ‘票价提升120%，明星效应+89%’,
+                title: '乒超联赛 · 深度案例',
+                stats: '票价提升120%，明星效应+89%',
                 desc: '结合运动员个人品牌价值和粉丝活跃度数据，乒超联赛优化了票务定价和应援活动。单赛季商业收入创历史新高，赞助商数量增加40%。我们的风险评估模块还帮助规避了两次潜在舆情危机。'
             }
         };
@@ -986,7 +986,7 @@
             card.addEventListener('click', function(e) {
                 var caseId = this.getAttribute('data-case');
                 var detail = caseDetails[caseId];
-                如果 (详细信息) {
+                if (detail) {
                     modalBody.innerHTML = `
                         <h2>${detail.title}</h2>
                         <div class="detail-stats">
@@ -1002,6 +1002,6 @@
 
         // 初始化：更新UI并绘制图表（如果已登录）
         updateUIBasedOnLogin();
-    </脚本>
+    </script>
 </body>
-      </html>
+</html>
