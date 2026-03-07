@@ -8,71 +8,86 @@
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <!-- Font Awesome 图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <style>
-        /* ---------- 全局变量与重置 ---------- */
+        /* ---------- 全局变量 ---------- */
         :root {
-            --primary: #1e3c72;
-            --primary-light: #2a5298;
-            --primary-soft: #e8eef9;
-            --accent: #4CAF50;
-            --accent-light: #80cbc4;
-            --bg-color: #f4f7fb;
-            --bg-pattern: radial-gradient(circle at 10% 20%, rgba(200, 220, 240, 0.2) 0%, transparent 30%);
-            --card-bg: #ffffff;
-            --glass-bg: rgba(255, 255, 255, 0.8);
-            --shadow-sm: 0 8px 20px rgba(0, 20, 40, 0.04);
-            --shadow-md: 0 12px 30px rgba(0, 20, 40, 0.08);
-            --shadow-lg: 0 20px 40px rgba(0, 20, 40, 0.12);
+            --primary: #1e2b4f;
+            --primary-light: #2e3f6e;
+            --primary-dark: #0f1a30;
+            --accent: #3b9e6f;
+            --accent-light: #5bb98c;
+            --accent-soft: #e0f2e9;
+            --bg-gradient: radial-gradient(circle at 10% 30%, #f0f5fa, #e6ecf3);
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --card-bg-solid: #ffffff;
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.3);
+            --shadow-sm: 0 8px 20px rgba(0, 20, 30, 0.04);
+            --shadow-md: 0 12px 30px rgba(0, 20, 30, 0.08);
+            --shadow-lg: 0 20px 40px rgba(0, 20, 30, 0.12);
             --radius-sm: 12px;
             --radius-md: 20px;
             --radius-lg: 30px;
-            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            --text-primary: #1e293b;
-            --text-secondary: #5a6a7a;
+            --transition: all 0.2s ease;
+            --text-primary: #1e2b4f;
+            --text-secondary: #4a5568;
+            --font-sans: 'Inter', 'Microsoft YaHei', sans-serif;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            font-family: 'Inter', 'Microsoft YaHei', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-color);
-            background-image: var(--bg-pattern);
+            font-family: var(--font-sans);
+            background: var(--bg-gradient);
             color: var(--text-primary);
             line-height: 1.5;
             min-height: 100vh;
         }
 
-        /* ---------- 导航栏 ---------- */
+        /* 容器限制内容宽度 */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* 导航栏 */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             background: var(--glass-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            padding: 0 60px;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 0 40px;
             height: 70px;
-            box-shadow: var(--shadow-sm);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(0,0,0,0.02);
+            border-bottom: var(--glass-border);
         }
 
         .logo-area {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .logo-icon {
-            font-size: 32px;
+            font-size: 28px;
             color: var(--primary);
-            filter: drop-shadow(0 4px 6px rgba(30, 60, 114, 0.1));
+            filter: drop-shadow(0 2px 4px rgba(30, 43, 79, 0.1));
         }
 
         .logo-text {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 600;
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             -webkit-background-clip: text;
@@ -89,37 +104,28 @@
         .nav-links a {
             color: var(--text-primary);
             text-decoration: none;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 500;
             transition: var(--transition);
             padding-bottom: 5px;
             border-bottom: 2px solid transparent;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
+            cursor: pointer;
         }
 
         .nav-links a:hover {
-            color: var(--primary);
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        .nav-links a.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
         }
 
         .nav-right {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
         }
 
         .btn-outline {
@@ -127,12 +133,12 @@
             color: var(--primary);
             background: transparent;
             padding: 8px 20px;
-            border-radius: var(--radius-lg);
+            border-radius: 40px;
             font-weight: 500;
+            font-size: 14px;
             cursor: pointer;
             transition: var(--transition);
             text-decoration: none;
-            font-size: 14px;
             backdrop-filter: blur(4px);
         }
 
@@ -140,7 +146,7 @@
             background: var(--primary);
             color: white;
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px -8px var(--primary);
+            box-shadow: 0 6px 12px rgba(30, 43, 79, 0.1);
         }
 
         .btn-solid {
@@ -148,29 +154,30 @@
             color: white;
             border: none;
             padding: 8px 24px;
-            border-radius: var(--radius-lg);
+            border-radius: 40px;
             font-weight: 500;
+            font-size: 14px;
             cursor: pointer;
             transition: var(--transition);
             text-decoration: none;
-            font-size: 14px;
-            box-shadow: 0 8px 16px -6px rgba(30, 60, 114, 0.2);
+            box-shadow: 0 4px 12px rgba(30, 43, 79, 0.15);
         }
 
         .btn-solid:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 24px -8px var(--primary);
+            box-shadow: 0 8px 20px rgba(30, 43, 79, 0.2);
             filter: brightness(1.05);
         }
 
+        /* 搜索条 */
         .search-section {
-            background: rgba(255, 255, 255, 0.7);
+            background: var(--glass-bg);
             backdrop-filter: blur(8px);
-            padding: 20px 60px;
+            padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(0,0,0,0.02);
+            border-bottom: var(--glass-border);
         }
 
         .search-wrapper {
@@ -178,21 +185,22 @@
             align-items: center;
             background: white;
             border-radius: 50px;
-            padding: 5px 5px 5px 20px;
-            width: 400px;
-            border: 1px solid rgba(0, 0, 0, 0.03);
+            padding: 4px 4px 4px 20px;
+            width: 360px;
+            border: 1px solid rgba(0,0,0,0.03);
             box-shadow: var(--shadow-sm);
             transition: var(--transition);
         }
 
         .search-wrapper:focus-within {
             box-shadow: var(--shadow-md);
-            border-color: var(--primary-light);
+            border-color: var(--accent-light);
         }
 
         .search-wrapper i {
-            color: #999;
-            margin-right: 10px;
+            color: #aaa;
+            margin-right: 8px;
+            font-size: 14px;
         }
 
         .search-wrapper input {
@@ -227,39 +235,39 @@
         }
 
         .user-actions a {
-            color: var(--text-primary);
+            color: var(--text-secondary);
             text-decoration: none;
             font-size: 14px;
             display: flex;
             align-items: center;
             gap: 5px;
-            cursor: pointer;
             transition: var(--transition);
         }
 
         .user-actions a:hover {
             color: var(--primary);
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
 
         .register-link {
-            background: linear-gradient(135deg, var(--accent), #66bb6a);
+            background: var(--accent);
             color: white !important;
-            padding: 8px 20px;
-            border-radius: var(--radius-lg);
-            box-shadow: 0 8px 16px -6px rgba(76, 175, 80, 0.2);
+            padding: 6px 16px;
+            border-radius: 40px;
+            box-shadow: 0 4px 10px rgba(59, 158, 111, 0.2);
         }
 
         .register-link:hover {
-            filter: brightness(1.05);
+            background: var(--accent-light);
             transform: translateY(-2px);
-            box-shadow: 0 12px 24px -8px #4CAF50;
+            box-shadow: 0 8px 16px rgba(59, 158, 111, 0.3);
         }
 
+        /* 主横幅 */
         .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
             color: white;
-            padding: 60px 60px;
+            padding: 60px 40px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -277,17 +285,18 @@
         }
 
         .hero h1 {
-            font-size: 42px;
+            font-size: 44px;
             margin-bottom: 15px;
             font-weight: 700;
-            text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
             position: relative;
         }
 
         .hero p {
             font-size: 18px;
             opacity: 0.9;
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto 30px;
             position: relative;
         }
@@ -303,11 +312,11 @@
             background: white;
             color: var(--primary);
             padding: 12px 30px;
-            border-radius: var(--radius-lg);
+            border-radius: 50px;
             font-weight: 600;
             text-decoration: none;
             transition: var(--transition);
-            box-shadow: 0 15px 25px -10px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 20px -5px rgba(0,0,0,0.3);
         }
 
         .hero-buttons .btn-white:hover {
@@ -319,7 +328,7 @@
             border: 2px solid white;
             color: white;
             padding: 12px 30px;
-            border-radius: var(--radius-lg);
+            border-radius: 50px;
             font-weight: 600;
             text-decoration: none;
             transition: var(--transition);
@@ -333,12 +342,9 @@
             transform: translateY(-3px);
         }
 
-        /* 通用容器 */
+        /* 内容区块通用样式 */
         .section {
-            padding: 60px 60px;
-            background: transparent;
-            position: relative;
-            z-index: 1;
+            padding: 60px 0;
         }
 
         .section-title {
@@ -347,15 +353,26 @@
             margin-bottom: 30px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             font-weight: 600;
+            letter-spacing: -0.3px;
         }
 
         .section-title i {
             color: var(--accent);
-            font-size: 32px;
+            font-size: 28px;
         }
 
+        /* 页面容器 */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* 赛事卡片网格 */
         .events-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -364,12 +381,13 @@
 
         .event-card {
             background: var(--card-bg);
+            backdrop-filter: blur(8px);
             border-radius: var(--radius-md);
-            padding: 28px;
+            padding: 30px;
             box-shadow: var(--shadow-sm);
-            border-left: 5px solid var(--accent);
+            border-left: 6px solid var(--accent);
             transition: var(--transition);
-            border: 1px solid rgba(0,0,0,0.02);
+            border: var(--glass-border);
         }
 
         .event-card:hover {
@@ -399,7 +417,7 @@
         }
 
         .event-dates {
-            background: var(--primary-soft);
+            background: rgba(255,255,255,0.6);
             padding: 15px;
             border-radius: var(--radius-sm);
             margin: 15px 0;
@@ -418,7 +436,7 @@
             flex: 1;
             text-align: center;
             padding: 10px;
-            border-radius: var(--radius-lg);
+            border-radius: 40px;
             text-decoration: none;
             font-weight: 500;
             font-size: 14px;
@@ -428,12 +446,12 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
-            box-shadow: 0 8px 16px -6px rgba(30, 60, 114, 0.2);
+            box-shadow: 0 4px 12px rgba(30, 43, 79, 0.2);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 24px -8px var(--primary);
+            box-shadow: 0 8px 18px rgba(30, 43, 79, 0.3);
         }
 
         .btn-secondary {
@@ -448,9 +466,9 @@
             transform: translateY(-2px);
         }
 
+        /* 数据卡片 */
         .data-section {
-            padding: 60px 60px;
-            background: transparent;
+            padding: 60px 0;
         }
 
         .data-grid {
@@ -461,9 +479,9 @@
         }
 
         .data-card {
-            background: var(--card-bg);
+            background: var(--card-bg-solid);
             border-radius: var(--radius-md);
-            padding: 25px;
+            padding: 30px;
             box-shadow: var(--shadow-sm);
             border: 1px solid rgba(0,0,0,0.02);
             transition: var(--transition);
@@ -480,6 +498,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            font-weight: 600;
         }
 
         .metric-mini-cards {
@@ -492,7 +511,7 @@
             flex: 1;
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
-            padding: 25px;
+            padding: 30px 20px;
             border-radius: var(--radius-md);
             text-align: center;
             box-shadow: var(--shadow-md);
@@ -500,42 +519,49 @@
         }
 
         .mini-card:hover {
-            transform: translateY(-5px) scale(1.02);
+            transform: translateY(-5px);
             box-shadow: var(--shadow-lg);
         }
 
         .mini-card .value {
-            font-size: 40px;
+            font-size: 42px;
             font-weight: 700;
             line-height: 1.2;
         }
 
+        .mini-card div:last-child {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
         .table-wrapper {
-            background: var(--card-bg);
+            background: var(--card-bg-solid);
             border-radius: var(--radius-md);
             padding: 20px;
             box-shadow: var(--shadow-sm);
-            border: 1px solid rgba(0,0,0,0.02);
+            overflow-x: auto;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
+            font-size: 14px;
         }
 
         th {
             text-align: left;
             padding: 15px 10px;
-            background: var(--primary-soft);
+            background: var(--accent-soft);
             color: var(--primary);
             font-weight: 600;
         }
 
         td {
             padding: 12px 10px;
-            border-bottom: 1px solid #e0e7ef;
+            border-bottom: 1px solid #eef2f6;
         }
 
+        /* 成功案例卡片 */
         .cases-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -543,9 +569,9 @@
         }
 
         .case-item {
-            background: var(--card-bg);
+            background: var(--card-bg-solid);
             border-radius: var(--radius-md);
-            padding: 28px;
+            padding: 30px;
             transition: var(--transition);
             border-bottom: 4px solid transparent;
             cursor: pointer;
@@ -573,51 +599,213 @@
             margin: 15px 0;
         }
 
-        .partners-section {
-            padding: 60px 60px;
-            background: rgba(255,255,255,0.5);
-            backdrop-filter: blur(8px);
+        /* 适用行业卡片 */
+        .industry-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        .industry-card {
+            background: var(--card-bg-solid);
+            border-radius: var(--radius-md);
+            padding: 30px;
             text-align: center;
-            border-top: 1px solid rgba(0,0,0,0.02);
-        }
-
-        .partner-logos {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            flex-wrap: wrap;
-            margin-top: 30px;
-        }
-
-        .partner-logos span {
-            font-size: 24px;
-            font-weight: 500;
-            color: var(--primary);
-            opacity: 0.8;
             transition: var(--transition);
-            background: white;
-            padding: 10px 25px;
-            border-radius: 50px;
             box-shadow: var(--shadow-sm);
         }
 
-        .partner-logos span:hover {
-            opacity: 1;
-            transform: scale(1.05);
-            background: white;
+        .industry-card:hover {
+            transform: translateY(-5px);
             box-shadow: var(--shadow-md);
         }
 
+        .industry-card i {
+            font-size: 40px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .industry-card h3 {
+            font-size: 18px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .industry-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* 核心功能页介绍卡片 */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background: var(--card-bg-solid);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+            border-top: 5px solid var(--accent);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .feature-card i {
+            font-size: 36px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .tech-stack {
+            background: var(--accent-soft);
+            border-radius: var(--radius-md);
+            padding: 40px;
+            margin-top: 40px;
+        }
+
+        .tech-stack h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+
+        .tech-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .tech-badge {
+            background: white;
+            padding: 10px 25px;
+            border-radius: 40px;
+            box-shadow: var(--shadow-sm);
+            font-weight: 500;
+        }
+
+        /* 生态伙伴分类 */
+        .partner-category {
+            margin-bottom: 40px;
+        }
+
+        .partner-category h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .partner-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .partner-badge {
+            background: white;
+            padding: 10px 25px;
+            border-radius: 40px;
+            box-shadow: var(--shadow-sm);
+            font-weight: 500;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .partner-badge:hover {
+            transform: scale(1.05);
+            background: var(--accent);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* 关于我们 */
+        .about-content {
+            display: flex;
+            gap: 50px;
+            align-items: flex-start;
+            flex-wrap: wrap;
+        }
+
+        .about-text {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .about-team {
+            flex: 1;
+            background: var(--card-bg-solid);
+            border-radius: var(--radius-md);
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .about-team h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .team-member {
+            margin-bottom: 20px;
+        }
+
+        .team-member .name {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .team-member .role {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        .contact-info {
+            margin-top: 30px;
+            color: var(--text-secondary);
+        }
+
+        .contact-info i {
+            color: var(--accent);
+            width: 24px;
+        }
+
         .footer {
-            background: linear-gradient(135deg, #13233e, var(--primary));
+            background: linear-gradient(135deg, #0f1a30, var(--primary-dark));
             color: #b0c4de;
-            padding: 40px 60px;
+            padding: 40px;
             text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
         .footer p {
             opacity: 0.8;
+            font-size: 14px;
         }
 
         /* 模态框 */
@@ -630,35 +818,34 @@
             width: 100%;
             height: 100%;
             overflow: auto;
-            background-color: rgba(0,0,0,0.3);
+            background-color: rgba(0,0,0,0.2);
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
         }
 
         .modal-content {
-            background: white;
+            background: var(--card-bg-solid);
             margin: auto;
-            padding: 35px;
+            padding: 40px;
             border-radius: var(--radius-md);
             width: 90%;
             max-width: 500px;
             box-shadow: var(--shadow-lg);
             position: relative;
-            animation: slideDown 0.4s ease;
-            border: 1px solid rgba(0,0,0,0.02);
+            animation: slideDown 0.3s ease;
         }
 
         @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
+            from { transform: translateY(-30px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
 
         .close {
             color: #aaa;
             position: absolute;
-            top: 15px;
-            right: 20px;
+            top: 20px;
+            right: 25px;
             font-size: 28px;
             font-weight: bold;
             cursor: pointer;
@@ -685,12 +872,11 @@
             border-radius: 50px;
             font-size: 14px;
             transition: var(--transition);
-            background: white;
         }
 
         .login-form input:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(76,175,80,0.1);
+            box-shadow: 0 0 0 3px rgba(59, 158, 111, 0.1);
             outline: none;
         }
 
@@ -710,22 +896,25 @@
 
         .login-form button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 12px 24px -8px var(--primary);
+            box-shadow: 0 12px 20px -8px var(--primary);
         }
 
-        /* 登录提示框 - 修复定位与重叠问题 */
+        .demo-hint {
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            margin-top: 15px;
+        }
+
+        /* 登录提示框 */
         .login-prompt {
             text-align: center;
             padding: 80px 20px;
-            background: white;
+            background: var(--card-bg-solid);
             border-radius: var(--radius-md);
             margin: 40px auto;
-            max-width: 600px;
+            max-width: 500px;
             box-shadow: var(--shadow-md);
-            border: 1px solid rgba(0,0,0,0.02);
-            position: relative;
-            z-index: 10;
-            clear: both;
         }
 
         .login-prompt i {
@@ -742,7 +931,7 @@
 
         .login-prompt p {
             color: var(--text-secondary);
-            max-width: 500px;
+            max-width: 400px;
             margin: 0 auto 25px;
         }
 
@@ -753,39 +942,36 @@
 
         /* 运动员选择器 */
         .athlete-selector {
-            background: var(--card-bg);
-            padding: 15px 60px;
+            background: var(--card-bg-solid);
+            padding: 15px 30px;
             display: flex;
             align-items: center;
             gap: 20px;
-            border-bottom: 1px solid rgba(0,0,0,0.02);
+            border-radius: var(--radius-md);
             box-shadow: var(--shadow-sm);
             margin-bottom: 30px;
-            border-radius: 0;
         }
 
         .athlete-selector select {
             padding: 10px 20px;
-            border-radius: 50px;
+            border-radius: 40px;
             border: 1px solid #ddd;
             font-size: 14px;
             outline: none;
             cursor: pointer;
             background: white;
-            box-shadow: var(--shadow-sm);
         }
 
         .wordcloud {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px 25px;
+            gap: 10px 20px;
             justify-content: center;
             padding: 30px;
-            background: var(--primary-soft);
+            background: var(--accent-soft);
             border-radius: var(--radius-md);
-            min-height: 200px;
+            min-height: 180px;
             align-items: center;
-            box-shadow: var(--shadow-sm);
         }
 
         .wordcloud span {
@@ -795,15 +981,15 @@
             font-weight: 500;
             transition: var(--transition);
             background: white;
-            border-radius: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            border-radius: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.02);
         }
 
         .wordcloud span:hover {
             transform: scale(1.15);
             background: var(--accent);
             color: white;
-            box-shadow: 0 8px 16px rgba(76,175,80,0.2);
+            box-shadow: 0 8px 16px rgba(59, 158, 111, 0.15);
         }
 
         .advice-card {
@@ -848,28 +1034,34 @@
             margin-bottom: 40px;
         }
 
-        /* 确保滚动时元素稳定 */
-        .data-card, .event-card, .case-item, .advice-card, .wordcloud, .athlete-selector {
-            transform: translateZ(0);
-            backface-visibility: hidden;
-            -webkit-font-smoothing: subpixel-antialiased;
-        }
-
-        @media (max-width: 768px) {
-            .data-grid, .data-grid-3, .cases-grid {
+        /* 响应式 */
+        @media (max-width: 900px) {
+            .data-grid, .data-grid-3, .cases-grid, .industry-grid, .feature-grid {
                 grid-template-columns: 1fr;
             }
-            .navbar, .search-section, .hero, .section {
-                padding-left: 20px;
-                padding-right: 20px;
+            .navbar .nav-links {
+                display: none; /* 实际项目可增加汉堡菜单，但此处简化为隐藏 */
+            }
+            .search-wrapper {
+                width: 100%;
+            }
+            .search-section {
+                flex-direction: column;
+                gap: 15px;
+                align-items: stretch;
+            }
+            .user-actions {
+                justify-content: center;
             }
             .hero h1 {
                 font-size: 32px;
             }
-            .athlete-selector {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+        }
+
+        /* 图表容器 */
+        .js-plotly-plot, .plot-container {
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
@@ -881,12 +1073,12 @@
             <span class="logo-text">智赛体育 · 饭圈经济分析</span>
         </div>
         <div class="nav-links">
-            <a href="#">首页</a>
-            <a href="#">核心功能</a>
-            <a href="#">适用行业</a>
-            <a href="#">成功案例</a>
-            <a href="#">生态伙伴</a>
-            <a href="#">关于我们</a>
+            <a class="active" data-page="home">首页</a>
+            <a data-page="core">核心功能</a>
+            <a data-page="industry">适用行业</a>
+            <a data-page="cases">成功案例</a>
+            <a data-page="partners">生态伙伴</a>
+            <a data-page="about">关于我们</a>
         </div>
         <div class="nav-right" id="navRight">
             <!-- 登录状态动态渲染 -->
@@ -898,7 +1090,7 @@
         <div class="search-wrapper">
             <i class="fas fa-search"></i>
             <input type="text" placeholder="搜索赛事、运动员或合作案例...">
-            <button onclick="alert('搜索功能演示中，实际应用将跳转结果页')">搜索</button>
+            <button onclick="alert('搜索功能演示中')">搜索</button>
         </div>
         <div class="user-actions" id="userActions">
             <!-- 登录状态动态渲染 -->
@@ -915,210 +1107,421 @@
         </div>
     </div>
 
-    <!-- 赛事卡片区（始终可见） -->
-    <div class="section">
-        <div class="section-title">
-            <i class="fas fa-calendar-alt"></i> 即将举办的焦点赛事
-        </div>
-        <div class="events-grid">
-            <div class="event-card">
-                <div class="event-title">🏓 WTT 大满贯 · 北京站</div>
-                <div class="event-sub">
-                    <span><i class="fas fa-map-marker-alt"></i> 北京 · 五棵松体育馆</span>
-                    <span><i class="fas fa-tag"></i> 乒乓球</span>
+    <!-- 主要内容容器 -->
+    <div class="container">
+        <!-- 页面：首页（完全保留原有内容，包含登录保护区域） -->
+        <div id="page-home" class="page active">
+            <!-- 赛事卡片区 -->
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-calendar-alt"></i> 即将举办的焦点赛事
                 </div>
-                <div class="event-dates">
-                    <div><i class="far fa-calendar"></i> 2026.05.20 - 2026.05.28</div>
-                    <div><i class="far fa-clock"></i> 资格赛 05.18 开始</div>
-                </div>
-                <div class="event-actions">
-                    <a href="#" class="btn-event btn-primary" onclick="alert('购票功能演示中')">购票</a>
-                    <a href="#" class="btn-event btn-secondary" onclick="alert('赛事详情演示页')">详情</a>
+                <div class="events-grid">
+                    <div class="event-card">
+                        <div class="event-title">🏓 WTT 大满贯 · 北京站</div>
+                        <div class="event-sub">
+                            <span><i class="fas fa-map-marker-alt"></i> 北京 · 五棵松体育馆</span>
+                            <span><i class="fas fa-tag"></i> 乒乓球</span>
+                        </div>
+                        <div class="event-dates">
+                            <div><i class="far fa-calendar"></i> 2026.05.20 - 2026.05.28</div>
+                            <div><i class="far fa-clock"></i> 资格赛 05.18 开始</div>
+                        </div>
+                        <div class="event-actions">
+                            <a href="#" class="btn-event btn-primary" onclick="alert('购票功能演示中')">购票</a>
+                            <a href="#" class="btn-event btn-secondary" onclick="alert('赛事详情演示页')">详情</a>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-title">🎮 INTEL EXTREME MASTERS 成都</div>
+                        <div class="event-sub">
+                            <span><i class="fas fa-map-marker-alt"></i> 成都 · 东安湖体育公园</span>
+                            <span><i class="fas fa-tag"></i> 电竞</span>
+                        </div>
+                        <div class="event-dates">
+                            <div><i class="far fa-calendar"></i> 2026.06.12 - 2026.06.18</div>
+                            <div><i class="far fa-clock"></i> 小组赛 06.10 开始</div>
+                        </div>
+                        <div class="event-actions">
+                            <a href="#" class="btn-event btn-primary" onclick="alert('购票功能演示中')">购票</a>
+                            <a href="#" class="btn-event btn-secondary" onclick="alert('赛事详情演示页')">详情</a>
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-title">⚽ 村超全国邀请赛 · 榕江</div>
+                        <div class="event-sub">
+                            <span><i class="fas fa-map-marker-alt"></i> 贵州 · 榕江县城北新区体育馆</span>
+                            <span><i class="fas fa-tag"></i> 足球</span>
+                        </div>
+                        <div class="event-dates">
+                            <div><i class="far fa-calendar"></i> 2026.07.03 - 2026.07.12</div>
+                            <div><i class="far fa-clock"></i> 抽签仪式 06.28</div>
+                        </div>
+                        <div class="event-actions">
+                            <a href="#" class="btn-event btn-primary" onclick="alert('预约功能演示中')">预约</a>
+                            <a href="#" class="btn-event btn-secondary" onclick="alert('赛事详情演示页')">详情</a>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="event-card">
-                <div class="event-title">🎮 INTEL EXTREME MASTERS 成都</div>
-                <div class="event-sub">
-                    <span><i class="fas fa-map-marker-alt"></i> 成都 · 东安湖体育公园</span>
-                    <span><i class="fas fa-tag"></i> 电竞</span>
-                </div>
-                <div class="event-dates">
-                    <div><i class="far fa-calendar"></i> 2026.06.12 - 2026.06.18</div>
-                    <div><i class="far fa-clock"></i> 小组赛 06.10 开始</div>
-                </div>
-                <div class="event-actions">
-                    <a href="#" class="btn-event btn-primary" onclick="alert('购票功能演示中')">购票</a>
-                    <a href="#" class="btn-event btn-secondary" onclick="alert('赛事详情演示页')">详情</a>
-                </div>
-            </div>
-            <div class="event-card">
-                <div class="event-title">⚽ 村超全国邀请赛 · 榕江</div>
-                <div class="event-sub">
-                    <span><i class="fas fa-map-marker-alt"></i> 贵州 · 榕江县城北新区体育馆</span>
-                    <span><i class="fas fa-tag"></i> 足球</span>
-                </div>
-                <div class="event-dates">
-                    <div><i class="far fa-calendar"></i> 2026.07.03 - 2026.07.12</div>
-                    <div><i class="far fa-clock"></i> 抽签仪式 06.28</div>
-                </div>
-                <div class="event-actions">
-                    <a href="#" class="btn-event btn-primary" onclick="alert('预约功能演示中')">预约</a>
-                    <a href="#" class="btn-event btn-secondary" onclick="alert('赛事详情演示页')">详情</a>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- 核心数据区域（登录后才显示） -->
-    <div id="protectedData" style="display: none;">
-        <!-- 饭圈经济价值量化核心部分 -->
-        <div class="data-section">
-            <div class="section-title">
-                <i class="fas fa-chart-pie"></i> 核心功能：饭圈经济价值量化
+            <!-- 核心数据区域（登录后才显示）- 这是首页原有的 protectedData 部分 -->
+            <div id="homeProtectedData" style="display: none;">
+                <!-- 饭圈经济价值量化核心部分 -->
+                <div class="data-section">
+                    <div class="section-title">
+                        <i class="fas fa-chart-pie"></i> 核心功能：饭圈经济价值量化
+                    </div>
+                    <div class="metric-mini-cards">
+                        <div class="mini-card">
+                            <div class="value">0.9475</div>
+                            <div>岭回归 R²</div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="value">38.32%</div>
+                            <div>消费转化率</div>
+                        </div>
+                        <div class="mini-card">
+                            <div class="value">79.44%</div>
+                            <div>乒乓球渗透率</div>
+                        </div>
+                    </div>
+                    <div class="data-grid">
+                        <div class="data-card">
+                            <h3>📊 各项目饭圈化渗透率</h3>
+                            <div id="penetrationChart" style="width:100%; height:350px;"></div>
+                        </div>
+                        <div class="data-card">
+                            <h3>📈 熵权-TOPSIS特征重要性排名</h3>
+                            <div id="importanceChart" style="width:100%; height:350px;"></div>
+                        </div>
+                    </div>
+                    <div class="table-wrapper">
+                        <table>
+                            <thead><tr><th>特征指标</th><th>重要性得分</th><th>驱动方向</th><th>业务解读</th></tr></thead>
+                            <tbody>
+                                <tr><td>百度指数 (日均值)</td><td>0.9657</td><td>正向</td><td>网络热度是商业价值核心驱动力</td></tr>
+                                <tr><td>微信搜索指数 (日均值)</td><td>0.9612</td><td>正向</td><td>社交平台关注度直接影响商业潜力</td></tr>
+                                <tr><td>微博粉丝数量 (万)</td><td>0.9050</td><td>正向</td><td>粉丝基数奠定变现基础</td></tr>
+                                <tr><td>代言数量</td><td>0.7931</td><td>正向</td><td>品牌合作经验增强商业信任</td></tr>
+                                <tr><td>世界冠军数量</td><td>0.4836</td><td>正向</td><td>竞技成就是长期价值保障</td></tr>
+                                <tr><td>年龄</td><td>0.0679</td><td>负向</td><td>年轻运动员更具成长潜力</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 运动员选择器 -->
+                <div class="athlete-selector">
+                    <label for="athleteSelect"><i class="fas fa-user-circle"></i> 选择运动员：</label>
+                    <select id="athleteSelect" onchange="updateAthleteData()">
+                        <option value="sys">孙颖莎</option>
+                        <option value="fzd">樊振东</option>
+                        <option value="qhc">全红婵</option>
+                    </select>
+                    <span style="color: #666; margin-left: auto;">数据基于近30天舆情监测</span>
+                </div>
+
+                <!-- 网络热度与用户画像分析 -->
+                <div class="data-section" style="background: transparent;">
+                    <div class="section-title">
+                        <i class="fas fa-fire"></i> 运动员网络热度与用户画像 · <span id="athleteNameDisplay">孙颖莎</span>
+                    </div>
+                    <div class="data-grid-3">
+                        <div class="data-card">
+                            <h3>🔥 搜素指数趋势</h3>
+                            <div id="baiduTrendChart" style="width:100%; height:300px;"></div>
+                        </div>
+                        <div class="data-card">
+                            <h3>📰 网络舆情情感分析</h3>
+                            <div id="sentimentChart" style="width:100%; height:300px;"></div>
+                        </div>
+                        <div class="data-card">
+                            <h3>📊 多维度评分雷达</h3>
+                            <div id="radarChart" style="width:100%; height:300px;"></div>
+                        </div>
+                    </div>
+                    <div class="data-grid" style="grid-template-columns: 1fr 1fr;">
+                        <div class="data-card">
+                            <h3>👥 粉丝年龄分布</h3>
+                            <div id="ageChart" style="width:100%; height:300px;"></div>
+                        </div>
+                        <div class="data-card">
+                            <h3>⚥ 粉丝性别比例</h3>
+                            <div id="genderChart" style="width:100%; height:300px;"></div>
+                        </div>
+                    </div>
+                    <!-- 词云区域 -->
+                    <div class="data-card" style="margin-top: 30px;">
+                        <h3>📰 新闻热点关键词（词云）</h3>
+                        <div id="wordcloudContainer" class="wordcloud"></div>
+                    </div>
+                </div>
+
+                <!-- 智能决策建议 -->
+                <div class="advice-card">
+                    <h3><i class="fas fa-lightbulb"></i> 智能决策建议 · 基于<span id="adviceAthlete">孙颖莎</span>当前数据</h3>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> <strong>赞助价值评估：</strong> 搜索指数周环比上升23%，粉丝购买力指数85分，建议美妆/快消品牌优先合作。</li>
+                        <li><i class="fas fa-exclamation-triangle"></i> <strong>舆情风险提示：</strong> 近期中性言论占比上升，可能与赛事表现波动有关，建议提前准备公关素材。</li>
+                        <li><i class="fas fa-chart-line"></i> <strong>粉丝运营建议：</strong> 18-24岁女性粉丝占比超60%，可策划“她经济”主题应援活动，转化率预计提升15%。</li>
+                    </ul>
+                </div>
             </div>
-            <div class="metric-mini-cards">
-                <div class="mini-card">
-                    <div class="value">0.87</div>
-                    <div>模型R² (精度)</div>
-                </div>
-                <div class="mini-card">
-                    <div class="value">38.32%</div>
-                    <div>消费转化率</div>
-                </div>
-                <div class="mini-card">
-                    <div class="value">79.44%</div>
-                    <div>乒乓球渗透率</div>
-                </div>
+
+            <!-- 首页登录提示（未登录时显示） -->
+            <div id="homeLoginPrompt" class="login-prompt" style="display: none;">
+                <i class="fas fa-lock"></i>
+                <h3>登录后查看核心数据分析</h3>
+                <p>包含饭圈经济价值量化、运动员网络热度、用户画像等高级功能，请登录或注册体验。</p>
+                <a href="#" class="btn-solid" id="homeLoginBtn">立即登录</a>
             </div>
-            <div class="data-grid">
-                <div class="data-card">
-                    <h3>📊 各项目饭圈化渗透率</h3>
-                    <div id="penetrationChart" style="width:100%; height:350px;"></div>
+
+            <!-- 成功案例（首页原有） -->
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-trophy"></i> 成功案例
                 </div>
-                <div class="data-card">
-                    <h3>📈 特征重要性排名 (随机森林)</h3>
-                    <div id="importanceChart" style="width:100%; height:350px;"></div>
+                <div class="cases-grid">
+                    <div class="case-item" data-case="1">
+                        <h3>惠州综高杯</h3>
+                        <div class="case-stats">
+                            <span><i class="fas fa-users"></i> 观众5.2万+</span>
+                            <span><i class="fas fa-chart-line"></i> 赞助+230%</span>
+                        </div>
+                        <p>通过粉丝行为分析优化票务策略，门票售罄速度提升60%。</p>
+                    </div>
+                    <div class="case-item" data-case="2">
+                        <h3>贵州村超</h3>
+                        <div class="case-stats">
+                            <span><i class="fas fa-video"></i> 全网曝光58亿</span>
+                            <span><i class="fas fa-tag"></i> 旅游收入+340%</span>
+                        </div>
+                        <p>利用社群传播模型，打造现象级IP，粉丝经济转化率52%。</p>
+                    </div>
+                    <div class="case-item" data-case="3">
+                        <h3>乒超联赛</h3>
+                        <div class="case-stats">
+                            <span><i class="fas fa-ticket-alt"></i> 票价提升120%</span>
+                            <span><i class="fas fa-star"></i> 明星效应+89%</span>
+                        </div>
+                        <p>结合运动员品牌价值，优化商业合作，收入创历史新高。</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- 运动员选择器 -->
-        <div class="athlete-selector">
-            <label for="athleteSelect"><i class="fas fa-user-circle"></i> 选择运动员：</label>
-            <select id="athleteSelect" onchange="updateAthleteData()">
-                <option value="sys">孙颖莎</option>
-                <option value="fzd">樊振东</option>
-                <option value="qhc">全红婵</option>
-            </select>
-            <span style="color: #666; margin-left: auto;">数据基于近30天舆情监测</span>
+        <!-- 页面：核心功能（新增内容，与首页完全不同） -->
+        <div id="page-core" class="page">
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-cogs"></i> 核心功能概述
+                </div>
+                <p style="color: var(--text-secondary); font-size: 16px; line-height: 1.8; margin-bottom: 40px;">
+                    智赛体育平台基于前沿机器学习与多准则决策算法，为体育产业提供从数据洞察到商业决策的全链路支持。以下是我们核心功能的技术架构与应用场景。
+                </p>
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>粉丝经济价值预测</h3>
+                        <p>集成随机森林、岭回归等多模型融合算法，精准预测运动员/赛事的商业价值潜力，支持品牌赞助决策。</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-balance-scale"></i>
+                        <h3>多维度风险评估</h3>
+                        <p>通过熵权-TOPSIS模型对运动员舆情、粉丝活跃度、历史表现等指标进行综合排序，量化潜在风险。</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-users"></i>
+                        <h3>粉丝画像分析</h3>
+                        <p>基于社交媒体数据构建粉丝用户画像（年龄、性别、兴趣分布），指导精准营销与内容运营。</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-pie"></i>
+                        <h3>特征重要性分析</h3>
+                        <p>输出影响商业价值的核心特征（如搜索指数、代言数量等），帮助资源精准投放。</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-robot"></i>
+                        <h3>智能决策建议</h3>
+                        <p>结合模型输出与行业知识库，生成可执行的商业策略建议（赞助评估、风险预警、运营优化）。</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-sync-alt"></i>
+                        <h3>实时数据监测</h3>
+                        <p>对接各大社交媒体、搜索引擎API，实时更新运动员热度与舆情，动态调整评估结果。</p>
+                    </div>
+                </div>
+                <div class="tech-stack">
+                    <h3>技术栈</h3>
+                    <div class="tech-badges">
+                        <span class="tech-badge">随机森林</span>
+                        <span class="tech-badge">岭回归</span>
+                        <span class="tech-badge">熵权-TOPSIS</span>
+                        <span class="tech-badge">Python</span>
+                        <span class="tech-badge">Plotly</span>
+                        <span class="tech-badge">大数据采集</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- 网络热度与用户画像分析 -->
-        <div class="data-section" style="background: transparent;">
-            <div class="section-title">
-                <i class="fas fa-fire"></i> 运动员网络热度与用户画像 · <span id="athleteNameDisplay">孙颖莎</span>
-            </div>
-            <div class="data-grid-3">
-                <div class="data-card">
-                    <h3>🔥 搜素指数趋势</h3>
-                    <div id="baiduTrendChart" style="width:100%; height:300px;"></div>
+        <!-- 页面：适用行业（与之前相同） -->
+        <div id="page-industry" class="page">
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-building"></i> 适用行业
                 </div>
-                <div class="data-card">
-                    <h3>📰 网络舆情情感分析</h3>
-                    <div id="sentimentChart" style="width:100%; height:300px;"></div>
+                <div class="industry-grid">
+                    <div class="industry-card">
+                        <i class="fas fa-trophy"></i>
+                        <h3>赛事运营方</h3>
+                        <p>量化粉丝经济价值，优化票务与赞助策略，提升赛事商业回报。帮助运营方识别高价值粉丝群体，实现精准营销。</p>
+                    </div>
+                    <div class="industry-card">
+                        <i class="fas fa-ad"></i>
+                        <h3>品牌赞助商</h3>
+                        <p>评估运动员商业价值，预警舆情风险，实现精准投放。基于粉丝画像优化代言人选择，提升投资回报率。</p>
+                    </div>
+                    <div class="industry-card">
+                        <i class="fas fa-handshake"></i>
+                        <h3>体育经纪公司</h3>
+                        <p>挖掘高潜力运动员，规划职业生涯，最大化商业合作收益。提供数据驱动的运动员价值评估与谈判支持。</p>
+                    </div>
+                    <div class="industry-card">
+                        <i class="fas fa-video"></i>
+                        <h3>媒体平台</h3>
+                        <p>分析粉丝行为，优化内容推荐，提升用户粘性与付费转化。洞察粉丝兴趣，指导内容生产与运营策略。</p>
+                    </div>
                 </div>
-                <div class="data-card">
-                    <h3>📊 多维度评分雷达</h3>
-                    <div id="radarChart" style="width:100%; height:300px;"></div>
-                </div>
-            </div>
-            <div class="data-grid" style="grid-template-columns: 1fr 1fr;">
-                <div class="data-card">
-                    <h3>👥 粉丝年龄分布</h3>
-                    <div id="ageChart" style="width:100%; height:300px;"></div>
-                </div>
-                <div class="data-card">
-                    <h3>⚥ 粉丝性别比例</h3>
-                    <div id="genderChart" style="width:100%; height:300px;"></div>
-                </div>
-            </div>
-            <!-- 词云区域 -->
-            <div class="data-card" style="margin-top: 30px;">
-                <h3>📰 新闻热点关键词（词云）</h3>
-                <div id="wordcloudContainer" class="wordcloud"></div>
             </div>
         </div>
 
-        <!-- 智能决策建议 -->
-        <div class="advice-card">
-            <h3><i class="fas fa-lightbulb"></i> 智能决策建议 · 基于<span id="adviceAthlete">孙颖莎</span>当前数据</h3>
-            <ul>
-                <li><i class="fas fa-check-circle"></i> <strong>赞助价值评估：</strong> 搜索指数周环比上升23%，粉丝购买力指数85分，建议美妆/快消品牌优先合作。</li>
-                <li><i class="fas fa-exclamation-triangle"></i> <strong>舆情风险提示：</strong> 近期中性言论占比上升，可能与赛事表现波动有关，建议提前准备公关素材。</li>
-                <li><i class="fas fa-chart-line"></i> <strong>粉丝运营建议：</strong> 18-24岁女性粉丝占比超60%，可策划“她经济”主题应援活动，转化率预计提升15%。</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- 未登录提示（独立居中，不再重叠） -->
-    <div id="loginPrompt" class="login-prompt" style="display: none;">
-        <i class="fas fa-lock"></i>
-        <h3>登录后查看核心数据分析</h3>
-        <p>包含饭圈经济价值量化、运动员网络热度、用户画像等高级功能，请登录或注册体验。</p>
-        <a href="#" class="btn-solid" id="promptLoginBtn">立即登录</a>
-    </div>
-
-    <!-- 成功案例 -->
-    <div class="section">
-        <div class="section-title">
-            <i class="fas fa-trophy"></i> 成功案例
-        </div>
-        <div class="cases-grid">
-            <div class="case-item" data-case="1">
-                <h3>惠州综高杯</h3>
-                <div class="case-stats">
-                    <span><i class="fas fa-users"></i> 观众5.2万+</span>
-                    <span><i class="fas fa-chart-line"></i> 赞助+230%</span>
+        <!-- 页面：成功案例（更详细案例） -->
+        <div id="page-cases" class="page">
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-trophy"></i> 成功案例深度解析
                 </div>
-                <p>通过粉丝行为分析优化票务策略，门票售罄速度提升60%。</p>
-            </div>
-            <div class="case-item" data-case="2">
-                <h3>贵州村超</h3>
-                <div class="case-stats">
-                    <span><i class="fas fa-video"></i> 全网曝光58亿</span>
-                    <span><i class="fas fa-tag"></i> 旅游收入+340%</span>
+                <div class="cases-grid">
+                    <div class="case-item" data-case="1">
+                        <h3>惠州综高杯</h3>
+                        <div class="case-stats">
+                            <span><i class="fas fa-users"></i> 观众5.2万+</span>
+                            <span><i class="fas fa-chart-line"></i> 赞助+230%</span>
+                        </div>
+                        <p>通过粉丝行为分析优化票务策略，门票售罄速度提升60%。衍生品销售额突破800万元。</p>
+                        <p style="margin-top:10px; color:var(--accent);">点击查看详情 →</p>
+                    </div>
+                    <div class="case-item" data-case="2">
+                        <h3>贵州村超</h3>
+                        <div class="case-stats">
+                            <span><i class="fas fa-video"></i> 全网曝光58亿</span>
+                            <span><i class="fas fa-tag"></i> 旅游收入+340%</span>
+                        </div>
+                        <p>借助球迷社群传播打造现象级IP，粉丝经济转化率52%，带动当地旅游与消费。</p>
+                        <p style="margin-top:10px; color:var(--accent);">点击查看详情 →</p>
+                    </div>
+                    <div class="case-item" data-case="3">
+                        <h3>乒超联赛</h3>
+                        <div class="case-stats">
+                            <span><i class="fas fa-ticket-alt"></i> 票价提升120%</span>
+                            <span><i class="fas fa-star"></i> 明星效应+89%</span>
+                        </div>
+                        <p>结合运动员品牌价值优化商业合作，单赛季收入创新高，赞助商数量增加40%。</p>
+                        <p style="margin-top:10px; color:var(--accent);">点击查看详情 →</p>
+                    </div>
                 </div>
-                <p>利用社群传播模型，打造现象级IP，粉丝经济转化率52%。</p>
-            </div>
-            <div class="case-item" data-case="3">
-                <h3>乒超联赛</h3>
-                <div class="case-stats">
-                    <span><i class="fas fa-ticket-alt"></i> 票价提升120%</span>
-                    <span><i class="fas fa-star"></i> 明星效应+89%</span>
+                <div style="margin-top:40px; background:var(--accent-soft); padding:30px; border-radius:var(--radius-md);">
+                    <h3 style="color:var(--primary); margin-bottom:15px;">更多案例即将上线</h3>
+                    <p style="color:var(--text-secondary);">我们正与更多赛事组织合作，包括CBA、中超、KPL等，敬请期待。</p>
                 </div>
-                <p>结合运动员品牌价值，优化商业合作，收入创历史新高。</p>
             </div>
         </div>
-    </div>
 
-    <!-- 生态伙伴 -->
-    <div class="partners-section">
-        <div class="section-title" style="justify-content: center;">
-            <i class="fas fa-handshake"></i> 生态伙伴
+        <!-- 页面：生态伙伴（与之前相同） -->
+        <div id="page-partners" class="page">
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-handshake"></i> 生态伙伴
+                </div>
+                <div class="partner-category">
+                    <h3>技术伙伴</h3>
+                    <div class="partner-badges">
+                        <span class="partner-badge">英特尔</span>
+                        <span class="partner-badge">腾讯云</span>
+                        <span class="partner-badge">阿里云</span>
+                        <span class="partner-badge">华为云</span>
+                    </div>
+                </div>
+                <div class="partner-category">
+                    <h3>媒体伙伴</h3>
+                    <div class="partner-badges">
+                        <span class="partner-badge">咪咕视频</span>
+                        <span class="partner-badge">抖音</span>
+                        <span class="partner-badge">微博</span>
+                        <span class="partner-badge">哔哩哔哩</span>
+                    </div>
+                </div>
+                <div class="partner-category">
+                    <h3>学术伙伴</h3>
+                    <div class="partner-badges">
+                        <span class="partner-badge">中国乒协</span>
+                        <span class="partner-badge">上海体育大学</span>
+                        <span class="partner-badge">北京体育大学</span>
+                        <span class="partner-badge">惠州学院</span>
+                    </div>
+                </div>
+                <div class="partner-category">
+                    <h3>品牌伙伴</h3>
+                    <div class="partner-badges">
+                        <span class="partner-badge">李宁</span>
+                        <span class="partner-badge">安踏</span>
+                        <span class="partner-badge">红双喜</span>
+                        <span class="partner-badge">可口可乐</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="partner-logos">
-            <span>英特尔</span>
-            <span>中国乒协</span>
-            <span>腾讯电竞</span>
-            <span>咪咕视频</span>
-            <span>李宁</span>
-        </div>
-    </div>
 
-    <!-- 底部 -->
-    <div class="footer">
-        <p>© 2026 智赛体育 · 数据驱动的饭圈经济智能分析平台 | 三创赛参赛作品</p>
-        <p style="margin-top: 15px; font-size: 12px;">本平台基于随机森林与熵权-TOPSIS模型，提供体育赛事粉丝经济量化决策支持。</p>
+        <!-- 页面：关于我们（与之前相同） -->
+        <div id="page-about" class="page">
+            <div class="section">
+                <div class="section-title">
+                    <i class="fas fa-info-circle"></i> 关于我们
+                </div>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>智赛体育是一家专注于体育产业数据智能分析的创新团队。我们基于随机森林、熵权-TOPSIS等前沿算法，为体育赛事、品牌方和媒体提供粉丝经济量化决策支持。</p>
+                        <p>项目源于三创赛（全国大学生电子商务“创新、创意及创业”挑战赛），旨在通过数据驱动的方法平衡“饭圈化”带来的经济机遇与潜在风险，推动体育产业健康可持续发展。</p>
+                        <p>目前已为多项赛事提供粉丝行为分析、商业价值评估及舆情预警服务，获得客户高度认可。我们致力于成为体育数字经济领域的领先服务商。</p>
+                        <div class="contact-info">
+                            <p><i class="fas fa-envelope"></i> contact@zhisai-sports.com</p>
+                            <p><i class="fas fa-phone"></i> 400-123-4567</p>
+                            <p><i class="fas fa-map-marker-alt"></i> 北京市朝阳区体育产业园B座</p>
+                        </div>
+                    </div>
+                    <div class="about-team">
+                        <h3>团队核心成员</h3>
+                        <div class="team-member">
+                            <div class="name">陈熙</div>
+                            <div class="role">数据分析与建模</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="name">吴明轩</div>
+                            <div class="role">前端开发与可视化</div>
+                        </div>
+                        <div class="team-member">
+                            <div class="name">指导老师</div>
+                            <div class="role">惠州学院 计算机学院</div>
+                        </div>
+                        <div style="margin-top:30px;">
+                            <p style="color:var(--text-secondary);">感谢所有支持我们的伙伴与用户。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- 模态框 -->
@@ -1138,8 +1541,8 @@
         function updateUIBasedOnLogin() {
             const navRight = document.getElementById('navRight');
             const userActions = document.getElementById('userActions');
-            const protectedData = document.getElementById('protectedData');
-            const loginPrompt = document.getElementById('loginPrompt');
+            const homeProtected = document.getElementById('homeProtectedData');
+            const homePrompt = document.getElementById('homeLoginPrompt');
 
             if (isLoggedIn()) {
                 navRight.innerHTML = `
@@ -1150,10 +1553,13 @@
                     <a href="#"><i class="far fa-user-circle"></i> 演示用户</a>
                     <a href="#" id="logoutLink" style="color: #e74c3c;"><i class="fas fa-sign-out-alt"></i> 退出</a>
                 `;
-                protectedData.style.display = 'block';
-                loginPrompt.style.display = 'none';
-                drawCoreCharts();
-                updateAthleteData();
+                if (homeProtected) homeProtected.style.display = 'block';
+                if (homePrompt) homePrompt.style.display = 'none';
+                // 如果首页当前激活且已登录，绘制图表
+                if (document.getElementById('page-home').classList.contains('active')) {
+                    drawCoreCharts();
+                    updateAthleteData();
+                }
             } else {
                 navRight.innerHTML = `
                     <a href="#" class="btn-outline" id="loginBtn">登录</a>
@@ -1162,16 +1568,16 @@
                 userActions.innerHTML = `
                     <a href="#" id="loginLink"><i class="far fa-user-circle"></i> 登录</a>
                     <a href="#" class="register-link" id="registerLink"><i class="fas fa-user-plus"></i> 注册</a>
-                    <a href="#" onclick="alert('商家入驻演示版，正式版可提交资料')"><i class="fas fa-store"></i> 商家入驻</a>
+                    <a href="#" onclick="alert('商家入驻演示版')"><i class="fas fa-store"></i> 商家入驻</a>
                 `;
-                protectedData.style.display = 'none';
-                loginPrompt.style.display = 'block';
+                if (homeProtected) homeProtected.style.display = 'none';
+                if (homePrompt) homePrompt.style.display = 'block';
             }
             bindAuthEvents();
         }
 
         function bindAuthEvents() {
-            document.querySelectorAll('#loginBtn, #loginLink, #promptLoginBtn').forEach(btn => {
+            document.querySelectorAll('#loginBtn, #loginLink, #homeLoginBtn').forEach(btn => {
                 if (btn) btn.addEventListener('click', function(e) {
                     e.preventDefault();
                     showLoginModal('login');
@@ -1191,6 +1597,37 @@
                 });
             });
         }
+
+        // ========== 页面切换 ==========
+        function switchPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            const targetPage = document.getElementById('page-' + pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                }
+            });
+            // 如果切换到首页且已登录，绘制图表
+            if (pageId === 'home' && isLoggedIn()) {
+                drawCoreCharts();
+                updateAthleteData();
+            }
+        }
+
+        // 导航点击事件
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const page = this.getAttribute('data-page');
+                switchPage(page);
+            });
+        });
 
         // ========== 绘制核心图表 ==========
         function drawCoreCharts() {
@@ -1215,62 +1652,54 @@
             Plotly.newPlot('penetrationChart', penetrationData, penetrationLayout);
 
             var importanceData = [{
-                x: [0.30, 0.17, 0.13, 0.13, 0.07],
-                y: ['胜率(%)', '综合表现评分', '平均排名', '粉丝人均消费', '网络观看人数'],
+                x: [0.9657, 0.9612, 0.9050, 0.7931, 0.4836, 0.0679],
+                y: ['百度指数', '微信指数', '微博粉丝', '代言数量', '冠军数量', '年龄'],
                 type: 'bar',
                 orientation: 'h',
-                marker: { color: ['#4CAF50', '#2196F3', '#FF9800', '#9C27B0', '#00BCD4'] },
-                text: ['0.30', '0.17', '0.13', '0.13', '0.07'],
+                marker: { color: ['#4CAF50', '#2196F3', '#FF9800', '#9C27B0', '#00BCD4', '#FF6384'] },
+                text: ['0.9657', '0.9612', '0.9050', '0.7931', '0.4836', '0.0679'],
                 textposition: 'outside'
             }];
             var importanceLayout = {
                 title: '',
-                xaxis: { title: '重要性得分', range: [0, 0.35] },
+                xaxis: { title: '重要性得分', range: [0, 1.0] },
                 yaxis: { title: '', automargin: true },
-                margin: { l: 150, r: 20, t: 30, b: 40 }
+                margin: { l: 120, r: 20, t: 30, b: 40 }
             };
             Plotly.newPlot('importanceChart', importanceData, importanceLayout);
         }
 
         // ========== 运动员数据 ==========
-                var athleteData = {
-            sys: {  // 孙颖莎
+        var athleteData = {
+            sys: {
                 name: '孙颖莎',
-                baidu: {
-                    x: ['2/3','2/5','2/7','2/9','2/11','2/13','2/15','2/17','2/19','2/21','2/23','2/25','2/27','3/2'],
-                    y: [7200000, 7800000, 8100000, 8300000, 8600000, 8800000, 8700000, 8500000, 8400000, 8600000, 8800000, 9000000, 9200000, 9500000]
-                },
-                sentiment: { values: [58, 22, 20], labels: ['正面','中性','负面'] },
-                age: { x: ['18岁以下','18-24岁','25-30岁','31-40岁','40岁以上'], y: [32, 48, 12, 5, 3] },
-                gender: { values: [65, 35], labels: ['女性','男性'] },
-                radar: { r: [95, 88, 92, 85, 78], labels: ['竞技表现','商业价值','粉丝活跃','媒体热度','风险指数'] },
+                baidu: { x: ['2/3','2/5','2/7','2/9','2/11','2/13','2/15','2/17','2/19','2/21','2/23','2/25','2/27','3/2'], y: [7200000,7800000,8100000,8300000,8600000,8800000,8700000,8500000,8400000,8600000,8800000,9000000,9200000,9500000] },
+                sentiment: { values: [58,22,20], labels: ['正面','中性','负面'] },
+                age: { x: ['18岁以下','18-24岁','25-30岁','31-40岁','40岁以上'], y: [32,48,12,5,3] },
+                gender: { values: [65,35], labels: ['女性','男性'] },
+                radar: { r: [92,88,85,40,78,65], labels: ['百度指数','微信指数','微博粉丝','代言数量','冠军数量','年龄'] },
                 wordcloud: ['夺冠热门','代言美妆','00后','小魔王','甜美','拼搏','孙颖莎','粉丝应援','国乒','世锦赛']
             },
-            fzd: {  // 樊振东
+            fzd: {
                 name: '樊振东',
-                baidu: {
-                    x: ['2/3','2/5','2/7','2/9','2/11','2/13','2/15','2/17','2/19','2/21','2/23','2/25','2/27','3/2'],
-                    y: [6800000, 7100000, 7300000, 7500000, 7700000, 7900000, 7800000, 7600000, 7500000, 7700000, 7900000, 8100000, 8300000, 8500000]
-                },
-                sentiment: { values: [62, 25, 13], labels: ['正面','中性','负面'] },
-                age: { x: ['18岁以下','18-24岁','25-30岁','31-40岁','40岁以上'], y: [20, 35, 30, 12, 3] },
-                gender: { values: [45, 55], labels: ['女性','男性'] },
-                radar: { r: [98, 90, 85, 88, 82], labels: ['竞技表现','商业价值','粉丝活跃','媒体热度','风险指数'] },
+                baidu: { x: ['2/3','2/5','2/7','2/9','2/11','2/13','2/15','2/17','2/19','2/21','2/23','2/25','2/27','3/2'], y: [6800000,7100000,7300000,7500000,7700000,7900000,7800000,7600000,7500000,7700000,7900000,8100000,8300000,8500000] },
+                sentiment: { values: [62,25,13], labels: ['正面','中性','负面'] },
+                age: { x: ['18岁以下','18-24岁','25-30岁','31-40岁','40岁以上'], y: [20,35,30,12,3] },
+                gender: { values: [45,55], labels: ['女性','男性'] },
+                radar: { r: [88,85,78,30,70,30], labels: ['百度指数','微信指数','微博粉丝','代言数量','冠军数量','年龄'] },
                 wordcloud: ['世界第一','暴力美学','军运会','樊振东','国乒队长','沉稳','赞助商','夺冠','采访','硬实力']
             },
-            qhc: {  // 全红婵
+            qhc: {
                 name: '全红婵',
-                baidu: {
-                    x: ['2/3','2/5','2/7','2/9','2/11','2/13','2/15','2/17','2/19','2/21','2/23','2/25','2/27','3/2'],
-                    y: [350000, 380000, 400000, 420000, 450000, 470000, 460000, 440000, 430000, 450000, 470000, 490000, 500000, 520000]
-                },
-                sentiment: { values: [78, 15, 7], labels: ['正面','中性','负面'] },
-                age: { x: ['18岁以下','18-24岁','25-30岁','31-40岁','40岁以上'], y: [55, 30, 10, 4, 1] },
-                gender: { values: [70, 30], labels: ['女性','男性'] },
-                radar: { r: [92, 95, 88, 96, 70], labels: ['竞技表现','商业价值','粉丝活跃','媒体热度','风险指数'] },
+                baidu: { x: ['2/3','2/5','2/7','2/9','2/11','2/13','2/15','2/17','2/19','2/21','2/23','2/25','2/27','3/2'], y: [350000,380000,400000,420000,450000,470000,460000,440000,430000,450000,470000,490000,500000,520000] },
+                sentiment: { values: [78,15,7], labels: ['正面','中性','负面'] },
+                age: { x: ['18岁以下','18-24岁','25-30岁','31-40岁','40岁以上'], y: [55,30,10,4,1] },
+                gender: { values: [70,30], labels: ['女性','男性'] },
+                radar: { r: [70,60,80,20,90,10], labels: ['百度指数','微信指数','微博粉丝','代言数量','冠军数量','年龄'] },
                 wordcloud: ['水花消失','天才少女','全红婵','奥运冠军','可爱','采访','家乡','粉丝','跳水','未来可期']
             }
         };
+
         function updateAthleteData() {
             var select = document.getElementById('athleteSelect');
             var athleteKey = select ? select.value : 'sys';
@@ -1285,77 +1714,48 @@
             Plotly.purge('ageChart');
             Plotly.purge('genderChart');
 
-            // 百度趋势
             var baiduTrace = [{
-                x: data.baidu.x,
-                y: data.baidu.y,
-                type: 'scatter',
-                mode: 'lines+markers',
-                line: { color: '#1e3c72', width: 3 },
-                marker: { size: 8 }
+                x: data.baidu.x, y: data.baidu.y,
+                type: 'scatter', mode: 'lines+markers',
+                line: { color: '#1e3c72', width: 3 }, marker: { size: 8 }
             }];
-            Plotly.newPlot('baiduTrendChart', baiduTrace, {
-                title: '',
-                margin: { l: 40, r: 20, t: 20, b: 40 }
-            });
+            Plotly.newPlot('baiduTrendChart', baiduTrace, { title: '', margin: { l:40, r:20, t:20, b:40 } });
 
-            // 情感饼图
             var sentimentTrace = [{
-                values: data.sentiment.values,
-                labels: data.sentiment.labels,
-                type: 'pie',
-                marker: { colors: ['#4CAF50', '#FFC107', '#F44336'] }
+                values: data.sentiment.values, labels: data.sentiment.labels,
+                type: 'pie', marker: { colors: ['#4CAF50','#FFC107','#F44336'] }
             }];
-            Plotly.newPlot('sentimentChart', sentimentTrace, {
-                margin: { l: 20, r: 20, t: 20, b: 20 }
-            });
+            Plotly.newPlot('sentimentChart', sentimentTrace, { margin: { l:20, r:20, t:20, b:20 } });
 
-            // 雷达图
             var radarTrace = [{
-                type: 'scatterpolar',
-                r: data.radar.r,
-                theta: data.radar.labels,
-                fill: 'toself',
-                name: data.name,
-                line: { color: '#4CAF50' }
+                type: 'scatterpolar', r: data.radar.r, theta: data.radar.labels,
+                fill: 'toself', name: data.name, line: { color: '#4CAF50' }
             }];
             Plotly.newPlot('radarChart', radarTrace, {
-                polar: { radialaxis: { visible: true, range: [0, 100] } },
-                margin: { l: 60, r: 60, t: 20, b: 20 }
+                polar: { radialaxis: { visible: true, range: [0,100] } },
+                margin: { l:60, r:60, t:20, b:20 }
             });
 
-            // 年龄分布
             var ageTrace = [{
-                x: data.age.x,
-                y: data.age.y,
-                type: 'bar',
-                marker: { color: '#36A2EB' }
+                x: data.age.x, y: data.age.y,
+                type: 'bar', marker: { color: '#36A2EB' }
             }];
-            Plotly.newPlot('ageChart', ageTrace, {
-                margin: { l: 40, r: 20, t: 20, b: 50 }
-            });
+            Plotly.newPlot('ageChart', ageTrace, { margin: { l:40, r:20, t:20, b:50 } });
 
-            // 性别饼图
             var genderTrace = [{
-                values: data.gender.values,
-                labels: data.gender.labels,
-                type: 'pie',
-                marker: { colors: ['#FF6384', '#36A2EB'] }
+                values: data.gender.values, labels: data.gender.labels,
+                type: 'pie', marker: { colors: ['#FF6384','#36A2EB'] }
             }];
-            Plotly.newPlot('genderChart', genderTrace, {
-                margin: { l: 20, r: 20, t: 20, b: 20 }
-            });
+            Plotly.newPlot('genderChart', genderTrace, { margin: { l:20, r:20, t:20, b:20 } });
 
-            // 词云
             var wordcloud = document.getElementById('wordcloudContainer');
             wordcloud.innerHTML = '';
             data.wordcloud.forEach(word => {
                 var span = document.createElement('span');
                 span.innerText = word;
-                var size = Math.floor(Math.random() * 22 + 14);
-                span.style.fontSize = size + 'px';
-                var colors = ['#1e3c72', '#4CAF50', '#FF9800', '#9C27B0', '#2196F3'];
-                span.style.color = colors[Math.floor(Math.random() * colors.length)];
+                span.style.fontSize = Math.floor(Math.random()*22+14) + 'px';
+                var colors = ['#1e3c72','#4CAF50','#FF9800','#9C27B0','#2196F3'];
+                span.style.color = colors[Math.floor(Math.random()*colors.length)];
                 wordcloud.appendChild(span);
             });
         }
@@ -1365,14 +1765,8 @@
         var modalBody = document.getElementById('modal-body');
         var closeBtn = document.querySelector('.close');
 
-        closeBtn.onclick = function() {
-            modal.style.display = 'none';
-        };
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        };
+        closeBtn.onclick = function() { modal.style.display = 'none'; };
+        window.onclick = function(event) { if (event.target == modal) modal.style.display = 'none'; };
 
         function showLoginModal(type) {
             if (type === 'login') {
@@ -1405,13 +1799,21 @@
             localStorage.setItem('isLoggedIn', 'true');
             modal.style.display = 'none';
             updateUIBasedOnLogin();
+            if (document.getElementById('page-home').classList.contains('active')) {
+                drawCoreCharts();
+                updateAthleteData();
+            }
         };
 
         window.handleRegister = function() {
             alert('演示版注册成功，已自动登录');
             localStorage.setItem('isLoggedIn', 'true');
             modal.style.display = 'none';
-            updateUIBasedOnLogin();
+            根据登录状态更新UI();
+            if (文档.getElementById('page-home').classList.contains('active')) {
+                drawCoreCharts();
+                updateAthleteData();
+            }
         };
 
         var caseDetails = {
@@ -1435,24 +1837,27 @@
             }
         };
 
-        document.querySelectorAll('.case-item').forEach(card => {
-            card.addEventListener('click', function(e) {
+        文档.querySelectorAll('.case-item').forEach(卡片 => {
+            卡片.addEventListener('点击', 函数(e) {
                 var caseId = this.getAttribute('data-case');
-                var detail = caseDetails[caseId];
-                if (detail) {
+                var 详情 = caseDetails[caseId];
+                如果 (详情) {
                     modalBody.innerHTML = `
-                        <h2>${detail.title}</h2>
+                        <h2>${详情.title}</h2>
                         <div class="detail-stats"><span><i class="fas fa-chart-line"></i> ${detail.stats}</span></div>
                         <p>${detail.desc}</p>
                         <p style="color:#4CAF50; margin-top:20px;"><i class="fas fa-check-circle"></i> 决策建议：${detail.advice}</p>
                     `;
-                    modal.style.display = 'flex';
+                    modal.样式.显示 = 'flex';
                 }
             });
         });
 
-        // 初始化
-        updateUIBasedOnLogin();
-    </script>
+        // 初始化（确保未登录状态）
+        localStorage.移除项('isLoggedIn');
+        根据登录状态更新UI();
+        // 默认显示首页
+        切换页面('首页');
+    </脚本>
 </body>
-</html>
+        </html>
