@@ -932,8 +932,8 @@
             3: { title: '乒超联赛 · 深度案例', stats: '票价提升120%，明星效应+89%', desc: '结合运动员个人品牌价值和粉丝活跃度数据，乒超联赛优化了票务定价和应援活动。单赛季商业收入创历史新高，赞助商数量增加40%。我们的风险评估模块还帮助规避了两次潜在舆情危机。', advice: '建议增加运动员社交媒体互动数据维度，进一步提升粉丝粘性。’ }
         };
 
-        文档.querySelectorAll('.case-item').forEach(card => {
-            card.addEventListener('click', function(e) {
+        document.querySelectorAll('.case-item').forEach(card => {
+            card.addEventListener('click', 函数(e) {
                 var caseId = this.getAttribute('data-case');
                 var detail = caseDetails[caseId];
                 如果 (详细信息) {
@@ -949,9 +949,9 @@
         });
 
         // 初始化
-        localStorage.removeItem('isLoggedIn');
+localStorage。removeItem('isLoggedIn');
         根据登录更新UI();
-        切换页面('home');
+        switchPage('home');
     </script>
 </body>
 </html>
